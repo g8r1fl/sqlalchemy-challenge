@@ -1,5 +1,5 @@
 import numpy as np
-
+import datetime as dt
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
@@ -42,8 +42,8 @@ def home():
             f"/api/v1.0/<start/<end><br/>"
     )
 
-    
-def precipitation("/api/v1.0/precipitation")
+@app.route("/api/v1.0/precipitation")    
+def precipitation():
     """convert the query results to a dictionary using 'date' as the key and 'prcp' as the value"""
     session = Session(engine)
 
@@ -58,19 +58,23 @@ def precipitation("/api/v1.0/precipitation")
         prcp_data.append(prcp_dict)
     return jsonify(prcp_data)
 
-def stations("/api/v1.0/stations")
+@app.route("/api/v1.0/stations")
+def stations():
     """Return JSON list of stations from the dataset"""
     return
 
-def tobs("/api/v1.0/tobs")
+@app.route("/api/v1.0/tobs")
+def tobs():
 
     return
 
-def start("/api/v1.0/start")
+@app.route("/api/v1.0/start")
+def start():
 
     return
 
-def end("/api/v1.0/end")
+@app.route("/api/v1.0/end")
+def end():
 
     return
 
