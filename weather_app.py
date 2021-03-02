@@ -70,8 +70,9 @@ def stations():
 
 @app.route("/api/v1.0/tobs")
 def tobs():
-
-    return
+    session = Session(engine)
+    query = session.query(Measurement.station, func.count(Measurement.station)).group_by(Measurement.station).all()
+    return jsonify(list(np.ravel(query)))
 
 @app.route("/api/v1.0/start")
 def start():
