@@ -33,13 +33,13 @@ app = Flask(__name__)
 
 def home():
     """List all available routes"""
-    
+
     return (f"Available Routes:<br/>"
             f"/api/v1.0/precipitation<br/>"
             f"/api/v1.0/stations<br/>"
             f"/api/v1.0/tobs<br/>"
-            f"/api/v1.0/<start><br/>"
-            f"/api/v1.0/<start/<end><br/>"
+            f"/api/v1.0/start/<start><br/>"
+            f"/api/v1.0/start-end/<start/<end><br/>"
     )
 
 @app.route("/api/v1.0/precipitation")    
@@ -70,17 +70,37 @@ def stations():
 
 @app.route("/api/v1.0/tobs")
 def tobs():
+    """Return a JSON list of temps for the previous year"""
     session = Session(engine)
     query = session.query(Measurement.station, func.count(Measurement.station)).group_by(Measurement.station).all()
-    return jsonify(list(np.ravel(query)))
+    most_active = (sorted(query, key=lambda x :int(x[1]), reverse=True))[0][0]
+    temps = session.query(Measurement.date, Measurement.tobs).filter(Measurement.station == most_active).filter(Measurement.date > "2016-8-23").all()
+    session.close()
+    return jsonify(temps)
 
-@app.route("/api/v1.0/start")
-def start():
+@app.route("/api/v1.0/start/<start>")   
+def start(start):
+    """Return a list of min, max and avg temperatures for\
+         the path variable supplied by the user, or a 404 if not."""
 
-    return
+    session = Session(engine)
+    query = session.query(Measurement.date, func.min(Measurement.tobs),\
+         func.max(Measurement.tobs), func.avg(Measurement.tobs))\
+             .filter(Measurement.date >= start).all()    
+    session.close()
+    return jsonify(query)
 
-@app.route("/api/v1.0/end")
-def end():
+@app.route("/api/v1.0/end/<start>/<end>")
+def end(start, end):
+    """Return a list of min, max and avg temperatures for\
+         the path variable supplied by the user, or a 404 if not."""
+    session = Session(engine)
+    query = session.query(Measurement.date, func.min(Measurement.tobs),\
+         func.max(Measurement.tobs), func.avg(Measurement.tobs))\
+             .filter(Measurement.date >= start, Measurement.date <= end).all()    
+    session.close()
+
+    return jsonify(query)
 
     return
 
