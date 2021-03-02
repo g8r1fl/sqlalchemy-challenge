@@ -49,6 +49,7 @@ def precipitation():
 
     year_ago = dt.date(2017, 8, 23) - dt.timedelta(366)
     precip = session.query(Measurement.date, Measurement.prcp).filter(Measurement.date > year_ago).all()
+    session.close()
 
     prcp_data = []
     for date, prcp in precip:
@@ -61,7 +62,11 @@ def precipitation():
 @app.route("/api/v1.0/stations")
 def stations():
     """Return JSON list of stations from the dataset"""
-    return
+    session = Session(engine)
+    stations = session.query(Station.station).all()
+    session.close()
+    station_list = list(np.ravel(stations))
+    return jsonify(station_list)
 
 @app.route("/api/v1.0/tobs")
 def tobs():
