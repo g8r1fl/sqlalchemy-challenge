@@ -38,8 +38,8 @@ def home():
             f"/api/v1.0/precipitation<br/>"
             f"/api/v1.0/stations<br/>"
             f"/api/v1.0/tobs<br/>"
-            f"/api/v1.0/start/<start><br/>"
-            f"/api/v1.0/start-end/<start/<end><br/>"
+            f"/api/v1.0/'<start>'<br/>"
+            f"/api/v1.0/'<start/<end>'<br/>"
     )
 
 @app.route("/api/v1.0/precipitation")    
@@ -78,7 +78,7 @@ def tobs():
     session.close()
     return jsonify(temps)
 
-@app.route("/api/v1.0/start/<start>")   
+@app.route("/api/v1.0/<start>")   
 def start(start):
     """Return a list of min, max and avg temperatures for\
          the path variable supplied by the user, or a 404 if not."""
@@ -90,7 +90,7 @@ def start(start):
     session.close()
     return jsonify(query)
 
-@app.route("/api/v1.0/end/<start>/<end>")
+@app.route("/api/v1.0/<start>/<end>")
 def end(start, end):
     """Return a list of min, max and avg temperatures for\
          the path variable supplied by the user, or a 404 if not."""
@@ -102,7 +102,6 @@ def end(start, end):
 
     return jsonify(query)
 
-    return
 
 if __name__ == "__main__":
     app.run(debug=True)
