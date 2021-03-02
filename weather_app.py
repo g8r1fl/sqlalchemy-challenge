@@ -16,12 +16,26 @@ def home():
     )
 
     
-# def home():
-#     """List all available routes"""
+def precipitation():
+    """convert the query results to a dictionary using 'date' as the key and 'prcp' as the value"""
     
-#     return (f"Available Routes:<br/>"
+    return 
 
+def stations():
+    """Return JSON list of stations from the dataset"""
+    return
 
+def tobs():
+
+    return
+
+def start():
+
+    return
+
+def end():
+
+    return
 
 if __name__ == "__main__":
     app.run(debug=True)
