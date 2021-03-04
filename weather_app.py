@@ -38,8 +38,8 @@ def home():
             f"/api/v1.0/precipitation<br/>"
             f"/api/v1.0/stations<br/>"
             f"/api/v1.0/tobs<br/>"
-            f"/api/v1.0/'<start>'<br/>"
-            f"/api/v1.0/'<start/<end>'<br/>"
+            f"/api/v1.0/start/<br/>"
+            f"/api/v1.0/start/end/<br/>"
     )
 
 @app.route("/api/v1.0/precipitation")    
@@ -63,7 +63,7 @@ def precipitation():
 def stations():
     """Return JSON list of stations from the dataset"""
     session = Session(engine)
-    stations = session.query(Station.station).all()
+    stations = session.query(Station.station, Station.name).all()
     session.close()
     station_list = list(np.ravel(stations))
     return jsonify(station_list)
@@ -95,11 +95,12 @@ def end(start, end):
     """Return a list of min, max and avg temperatures for\
          the path variable supplied by the user, or a 404 if not."""
     session = Session(engine)
-    query = session.query(Measurement.date, func.min(Measurement.tobs),\
+    query = session.query(func.min(Measurement.tobs),\
          func.max(Measurement.tobs), func.avg(Measurement.tobs))\
              .filter(Measurement.date >= start, Measurement.date <= end).all()    
+    
     session.close()
-
+    # weather_dict = [{'Min Temperature': func.min(Measurement.tobs),'Max Temperature': func.max(Measurement.tobs), 'Avg Temperature': func.avg(Measurement.tobs)}]
     return jsonify(query)
 
 
