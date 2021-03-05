@@ -84,7 +84,7 @@ def start(start):
          the path variable supplied by the user, or a 404 if not."""
 
     session = Session(engine)
-    query = session.query(Measurement.date, func.min(Measurement.tobs),\
+    query = session.query(func.min(Measurement.tobs),\
          func.max(Measurement.tobs), func.avg(Measurement.tobs))\
              .filter(Measurement.date >= start).all()    
     session.close()
@@ -100,7 +100,7 @@ def end(start, end):
              .filter(Measurement.date >= start, Measurement.date <= end).all()    
     
     session.close()
-    # weather_dict = [{'Min Temperature': func.min(Measurement.tobs),'Max Temperature': func.max(Measurement.tobs), 'Avg Temperature': func.avg(Measurement.tobs)}]
+    # weather_dict = {'Min Temperature': func.min(Measurement.tobs),'Max Temperature': func.max(Measurement.tobs), 'Avg Temperature': func.avg(Measurement.tobs)}
     return jsonify(query)
 
 
