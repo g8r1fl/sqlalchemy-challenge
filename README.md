@@ -13,30 +13,33 @@
 
 The first task was to analyze the last 12 months of precipitation from all stations (9 total) and load it into a DataFrame for plotting.  
 
-![precipitation graph](prcp.png) 
+![precipitation graph](Images/prcp.png) 
 
 The second task was to analyze the temperature observations at each station and create a histogram from the data queried.
-![histogram](histogram.png)
+
+
+
+![histogram](Images/histogram.png)
 
 ## Climate App
 After creating the queries and graphs, I designed a Flask API to display the query results.
 * Flask root directory
-![flask_root](flask_root.png)
+![flask_root](Images/flask_root.png)
 
 * Flask Precipitation
-![flask_prcp](flask_prcp.png)
+![flask_prcp](Images/flask_prcp.png)
 * Flask Stations
-![flask_stations](flask_stations.png)
+![flask_stations](Images/flask_stations.png)
 * Flask Start Date/ End Date
-![flask_start_end](flask_start_end.png)
+![flask_start_end](Images/flask_start_end.png)
 
 ## Bonus # 1
 
 ### Temperature Analysis 1
 Here I had to analyze temperature data to determine if there was a meaninful difference between the temperatures during June and December in Hawaii.  After some querying and data manipulating I came up with some statistical data and performed a paired t-test.
-![june_stats](june_stats.png)
-![dec_stats](dec_stats.png)
-![trip_avg](trip_avg_temp.png)
+![june_stats](Images/june_stats.png)
+![dec_stats](Images/dec_stats.png)
+![trip_avg](Images/trip_avg_temp.png)
 
 **Conclusion**
 *With a p-value < 0.05 the means between June and December are statistically significant. Therefore there is a meaningful difference between the temperatures of both months. June is definitely a warmer month to visit.*     
