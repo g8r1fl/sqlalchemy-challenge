@@ -13,7 +13,7 @@
 
 The first task was to analyze the last 12 months of precipitation from all stations (9 total) and load it into a DataFrame for plotting.  
 
-![precipitation graph](Images/prcp.pn mk 
+![precipitation graph](Images/prcp.png) 
 
 The second task was to analyze the temperature observations at each station and create a histogram from the data queried.
 
